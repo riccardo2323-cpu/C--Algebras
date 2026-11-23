@@ -1,0 +1,42 @@
+# Keep only the book source, its current PDF, and the bibliography.
+*.tex
+!C_-algebras.tex
+
+# LaTeX build products.
+*.aux
+*.aux.*
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+
+# Keep the current book PDF and the bibliography PDFs only.
+*.pdf
+!C_-algebras.pdf
+!Biblio/*.pdf
+
+# Local checks, renders, and editor state.
+*.png
+*.jpg
+*.jpeg
+tmp/
+codex-check/
+.vscode/
+
+# Miscellaneous local files.
+tex
+Thumbs.db
+desktop.ini
+.DS_Store

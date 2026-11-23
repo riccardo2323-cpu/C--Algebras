@@ -1,0 +1,35 @@
+name: Build LaTeX
+
+on:
+  push:
+    paths:
+      - "C_-algebras.tex"
+      - ".github/workflows/build-latex.yml"
+  pull_request:
+    paths:
+      - "C_-algebras.tex"
+      - ".github/workflows/build-latex.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Compile book
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: C_-algebras.tex
+          os: debian
+
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v6
+        with:
+          name: C-star-algebras-PDF
+          path: C_-algebras.pdf
+          if-no-files-found: error
