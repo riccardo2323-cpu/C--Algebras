@@ -15266,6 +15266,265 @@ single relation between two matrices, not a \(*\)-homomorphism from
 next chapter will develop the structural information carried by consecutive
 convergents before circle-algebra approximations are constructed.
 
+\chapter{Circle-Algebra Building Blocks}
+
+The matrix pairs of the preceding chapter detect the rational commutation
+relation, but their \(K_1\)-group vanishes.  An approximation of the
+irrational rotation algebra which is to retain the two \(K_1\)-generators
+must therefore contain a circle variable.  The elementary building blocks
+for this purpose are matrix algebras over \(C(\mathbb T)\), and the
+continued fractions of \(\theta\) prescribe their matrix sizes.
+
+\section{Matrix algebras over the circle}
+
+For \(r\geq1\), put
+\[
+  \mathcal C_r=M_r(C(\mathbb T)).
+\]
+Thus an element of \(\mathcal C_r\) is a continuous function from
+\(\mathbb T\) to \(M_r(\mathbb C)\).  Evaluation at \(z\in\mathbb T\)
+is a surjective homomorphism
+\[
+  \operatorname{ev}_z\colon\mathcal C_r\longrightarrow M_r(\mathbb C),
+  \qquad f\longmapsto f(z).
+\]
+The fibre is again a full matrix algebra, but the central copy of
+\(C(\mathbb T)\), given by scalar-valued functions, has not been
+specialized.  This is the one circular degree of freedom absent from a
+matrix fibre.
+
+The standard Morita invariance and Bott calculation give
+\[
+  K_0(\mathcal C_r)\cong\mathbb Z,
+  \qquad
+  K_1(\mathcal C_r)\cong\mathbb Z.
+\]
+We use the rank identification for \(K_0(\mathcal C_r)\).  Under this
+identification the unit has class
+\[
+  [1_{\mathcal C_r}]_0=r.
+\]
+For \(K_1\), a convenient generator is represented by the unitary
+\[
+  z\longmapsto z1_r.
+\]
+In particular, evaluation at a point destroys the \(K_1\)-class: it maps
+the above loop to a scalar unitary in \(M_r(\mathbb C)\), whose class is
+zero because \(K_1(M_r(\mathbb C))=0\).  This makes precise the advantage
+of a circle algebra over a single matrix fibre.
+
+For positive integers \(r,s\), write
+\[
+  \mathcal B_{r,s}=\mathcal C_r\oplus\mathcal C_s
+  =M_r(C(\mathbb T))\oplus M_s(C(\mathbb T)).
+\]
+Then
+\begin{equation}\label{eq:CircleBlockKTheory}
+  K_0(\mathcal B_{r,s})\cong\mathbb Z^2,
+  \qquad
+  [1_{\mathcal B_{r,s}}]_0=(r,s),
+  \qquad
+  K_1(\mathcal B_{r,s})\cong\mathbb Z^2.
+\end{equation}
+The two summands should not be viewed as a dispensable doubling.  Their
+matrix sizes will be consecutive continued-fraction denominators, and the
+two circle directions provide precisely the rank needed to account for the
+\(K_1\)-group of \(A_\theta\).
+
+\section{Consecutive convergents}
+
+Let \(p_n/q_n\) be the convergents of
+\[
+  \theta=[0;a_1,a_2,\ldots]\in(0,1)\setminus\mathbb Q.
+\]
+The determinant identity for consecutive convergents is
+\begin{equation}\label{eq:ConsecutiveConvergentDeterminant}
+  p_nq_{n-1}-p_{n-1}q_n=(-1)^{n-1}.
+\end{equation}
+Thus the two columns of
+\[
+  \begin{pmatrix}
+    q_n&q_{n-1}\\
+    p_n&p_{n-1}
+  \end{pmatrix}
+\]
+form a basis of \(\mathbb Z^2\).  In particular, \(q_n\) and
+\(q_{n-1}\) are relatively prime.  The circle block naturally associated
+with this pair is
+\[
+  \mathcal B_n
+   =M_{q_n}(C(\mathbb T))\oplus M_{q_{n-1}}(C(\mathbb T)).
+\]
+By \eqref{eq:CircleBlockKTheory},
+\[
+  [1_{\mathcal B_n}]_0=(q_n,q_{n-1}),
+  \qquad
+  K_1(\mathcal B_n)\cong\mathbb Z^2.
+\]
+
+The same arithmetic which produces the two matrix sizes also produces a
+partition of the unit.  Recall that
+\[
+  \delta_n=(-1)^n(q_n\theta-p_n)>0.
+\]
+
+\begin{proposition}\label{prop:ConvergentErrorPartition}
+  For every \(n\geq1\),
+  \[
+    q_n\delta_{n-1}+q_{n-1}\delta_n=1.
+  \]
+\end{proposition}
+
+\begin{proof}
+  By the definition of the positive errors,
+  \begin{align*}
+    q_n\delta_{n-1}+q_{n-1}\delta_n
+      &=-(-1)^nq_n(q_{n-1}\theta-p_{n-1})
+        +(-1)^nq_{n-1}(q_n\theta-p_n)\\
+      &=(-1)^n(q_np_{n-1}-q_{n-1}p_n)\\
+      &=1
+  \end{align*}
+  by \eqref{eq:ConsecutiveConvergentDeterminant}.
+\end{proof}
+
+The identity says that there are \(q_n\) pieces of length
+\(\delta_{n-1}\) and \(q_{n-1}\) pieces of length \(\delta_n\) whose
+total length is one.  It is the numerical shadow of the two return-time
+towers of Chapter~19.  In the circle-algebra construction the same two
+towers are closed up by a circle parameter rather than being reduced to
+finite-dimensional matrix stages.
+
+\section{Why the blocks have the right shape}
+
+The algebra \(\mathcal B_n\) is not obtained merely by replacing the two
+summands of the Effros--Shen stage
+\[
+  M_{q_n}(\mathbb C)\oplus M_{q_{n-1}}(\mathbb C)
+\]
+by larger algebras.  The added circle variables change the relevant
+invariants: the AF stage has trivial \(K_1\), whereas
+\(K_1(\mathcal B_n)\cong\mathbb Z^2\).  Equally, evaluation at a point of
+each circle recovers a finite-dimensional algebra, but it loses both
+\(K_1\)-directions.  Thus the circle blocks sit exactly between the matrix
+fibres of Chapter~21 and the irrational rotation algebra.
+
+There is a further warning.  The data \((q_n,q_{n-1})\) determine the
+isomorphism type of the displayed building block, but not the homomorphism
+from one block to the next.  A homomorphism between circle algebras carries
+both multiplicity information on \(K_0\) and winding information on
+\(K_1\).  Consequently, the continued-fraction recurrence alone cannot
+be promoted to an inductive system for \(A_\theta\).  The existence of the
+required connecting maps is the substantive content of the
+Elliott--Evans construction.
+
+\chapter{The Elliott--Evans AT Decomposition}
+
+The preceding chapter identified the only plausible elementary building
+blocks for an approximation which retains both the matrix sizes dictated by
+continued fractions and the nontrivial \(K_1\)-theory of the rotation
+algebra.  Elliott and Evans proved that these blocks do in fact assemble
+into an inductive-limit description of \(A_\theta\).  This is a structural
+theorem, not a consequence of the scalar commutation-defect estimate of
+Chapter~21.
+
+\section{The theorem}
+
+We use the following form of the Elliott--Evans theorem.  It is the main
+result of \cite{ElliottEvans1993}; the relation with successive convergents
+is also recorded in \cite{Stacey2001}.
+
+\begin{theorem}[Elliott--Evans]\label{thm:ElliottEvansAT}
+  Let \(\theta\in(0,1)\setminus\mathbb Q\).  There are pairs
+  \((r_k,s_k)\), each consisting of denominators of two successive
+  convergents of \(\theta\), and unital connecting homomorphisms
+  \[
+    \varphi_k\colon
+    M_{r_k}(C(\mathbb T))\oplus M_{s_k}(C(\mathbb T))
+    \longrightarrow
+    M_{r_{k+1}}(C(\mathbb T))\oplus M_{s_{k+1}}(C(\mathbb T)),
+  \]
+  such that
+  \[
+    A_\theta\cong
+    \varinjlim\bigl(
+      M_{r_k}(C(\mathbb T))\oplus M_{s_k}(C(\mathbb T)),
+      \varphi_k
+    \bigr).
+  \]
+  In particular, \(A_\theta\) is an AT algebra.
+\end{theorem}
+
+\begin{remark}
+  The theorem is quoted here rather than reproved.  Its proof constructs
+  two circle-algebra approximants inside the rotation algebra and controls
+  the boundary terms produced when the continued-fraction towers are
+  closed up.  This is considerably stronger than the existence of the
+  rational matrix fibres from Chapter~21.  In particular, it supplies the
+  connecting homomorphisms \(\varphi_k\); they are not determined by the
+  fraction matrices alone.
+\end{remark}
+
+Recall that an AT algebra is, by definition, an inductive limit of finite
+direct sums of algebras of the form \(M_r(C(\mathbb T))\).  The theorem
+therefore gives an approximation statement internal to the category of
+\(C^*\)-algebras: if \(\iota_k\) denotes the canonical map of the
+\(k\)-th building block into the limit, then
+\[
+  \bigcup_k
+  \iota_k\bigl(M_{r_k}(C(\mathbb T))\oplus
+               M_{s_k}(C(\mathbb T))\bigr)
+\]
+is dense in the inductive limit.  After choosing the isomorphism in
+Theorem~\ref{thm:ElliottEvansAT}, every finite subset of \(A_\theta\) is
+therefore uniformly approximated by elements coming from one circle block.
+
+\section{K-theory and the role of the connecting maps}
+
+Continuity of \(K\)-theory for inductive limits, established in
+Chapter~9, gives
+\begin{align*}
+  K_i(A_\theta)
+    &\cong
+      \varinjlim\bigl(K_i(\mathcal B_k),(\varphi_k)_*\bigr),
+      \qquad i=0,1,\\
+  \mathcal B_k
+    &=M_{r_k}(C(\mathbb T))\oplus M_{s_k}(C(\mathbb T)).
+\end{align*}
+By Chapter~13, both \(K_0(A_\theta)\) and \(K_1(A_\theta)\) are
+isomorphic to \(\mathbb Z^2\).  The building blocks already have groups
+of this rank, but this observation does not make the connecting maps
+formal.  On \(K_0\), their action must be compatible with the order and
+with the distinguished unit.  On \(K_1\), it must encode the winding data
+which yield the required direct limit \(\mathbb Z^2\).  The concrete maps
+constructed by Elliott and Evans accomplish both tasks simultaneously.
+
+This also explains why the Effros--Shen system and the Elliott--Evans
+system should not be conflated.  The former is an AF inductive system whose
+stages are finite-dimensional and whose limit has \(K_1=0\).  The latter
+is an AT inductive system whose stages carry circle variables and whose
+limit is \(A_\theta\).  Their common continued-fraction denominators
+express a shared arithmetic skeleton; their different building blocks
+record different operator-algebraic information.
+
+\section{What the approximation does and does not assert}
+
+Theorem~\ref{thm:ElliottEvansAT} makes a precise approximation statement:
+given a finite set \(F\subset A_\theta\) and \(\varepsilon>0\), there is
+a building block \(\mathcal B_k\) such that every element of \(F\) is
+within \(\varepsilon\) of the image of \(\mathcal B_k\) in the inductive
+limit realization.  The approximants are circle algebras, not matrix
+algebras, and the assertion is one of norm approximation of elements after
+the Elliott--Evans construction has been made.
+
+It does not assert that the clock-and-shift matrices of Chapter~21 converge
+to the canonical generators in operator norm, nor does it furnish a
+canonical embedding of a rational matrix fibre into \(A_\theta\).
+Neither does it by itself provide a metric convergence result in the sense
+of noncommutative metric geometry.  Such a result requires a choice of
+Lip-norms and quantitative estimates comparing the resulting compact
+quantum metric spaces.  The present part has established the algebraic
+framework to which that later metric analysis will be attached.
+
 \begin{thebibliography}{99}
 
 \bibitem{MGJ90}
@@ -15374,6 +15633,18 @@ convergents before circle-algebra approximations are constructed.
   American Mathematical Society,
   Providence, RI,
   1996.
+
+\bibitem{ElliottEvans1993}
+  G. A. Elliott and D. E. Evans,
+  \textit{The structure of the irrational rotation \(C^*\)-algebra},
+  Annals of Mathematics (2) \textbf{138}, no.~3 (1993), 477--501,
+  \url{https://doi.org/10.2307/2946553}.
+
+\bibitem{Stacey2001}
+  P. J. Stacey,
+  \textit{Inductive limit toral automorphisms of irrational rotation algebras},
+  Canadian Mathematical Bulletin \textbf{44}, no.~3 (2001), 335--336,
+  \url{https://doi.org/10.4153/CMB-2001-033-6}.
 
 \bibitem{Rieffel1981}
   M. A. Rieffel,
