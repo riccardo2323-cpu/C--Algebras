@@ -8,7 +8,7 @@ Last updated: 25 November 2026.
 - Part II ends with the Effros--Shen AF algebra and explicitly announces the
   transition to Part III.
 - The source and current PDF are stored in the private GitHub repository
-  `riccardomoz/C--Algebras` together with `Biblio/`.
+  `riccardo2323-cpu/C--Algebras` together with `Biblio/`.
 - GitHub Actions successfully compiles the complete book and uploads the PDF
   artifact.
 - GitHub Codespaces is configured with TeX Live and LaTeX Workshop.

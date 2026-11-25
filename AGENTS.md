@@ -17,7 +17,7 @@ Before doing any work in this repository:
 - Main source: `C_-algebras.tex`.
 - Current compiled book: `C_-algebras.pdf`.
 - Local source library: `Biblio/`.
-- GitHub repository: `https://github.com/riccardomoz/C--Algebras`.
+- GitHub repository: `https://github.com/riccardo2323-cpu/C--Algebras`.
 - The repository is private.
 - GitHub Actions compiles the book with `.github/workflows/build-latex.yml`.
 - `.devcontainer/devcontainer.json` provides a browser-based LaTeX
