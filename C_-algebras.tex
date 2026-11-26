@@ -15306,8 +15306,11 @@ identification the unit has class
 \]
 For \(K_1\), a convenient generator is represented by the unitary
 \[
-  z\longmapsto z1_r.
+  z\longmapsto \operatorname{diag}(z,1,\ldots,1).
 \]
+Indeed, the determinant of this loop has winding number one. By contrast,
+the scalar loop \(z\mapsto z1_r\) has determinant \(z^r\), and therefore
+represents \(r\) times the chosen generator.
 In particular, evaluation at a point destroys the \(K_1\)-class: it maps
 the above loop to a scalar unitary in \(M_r(\mathbb C)\), whose class is
 zero because \(K_1(M_r(\mathbb C))=0\).  This makes precise the advantage
@@ -15427,23 +15430,331 @@ into an inductive-limit description of \(A_\theta\).  This is a structural
 theorem, not a consequence of the scalar commutation-defect estimate of
 Chapter~21.
 
-\section{The theorem}
+\section{Two elementary lemmas}
 
-We use the following form of the Elliott--Evans theorem.  It is the main
-result of \cite{ElliottEvans1993}; the relation with successive convergents
-is also recorded in \cite{Stacey2001}.
+We first isolate the two general facts used in the construction. The first
+recognizes a circle algebra from a rational commutation relation.
 
-\begin{theorem}[Elliott--Evans]\label{thm:ElliottEvansAT}
-  Let \(\theta\in(0,1)\setminus\mathbb Q\).  There are pairs
-  \((r_k,s_k)\), each consisting of denominators of two successive
-  convergents of \(\theta\), and unital connecting homomorphisms
+\begin{lemma}\label{lemma:CircleAlgebraRecognition}
+  Let \(X\) and \(W\) be unitaries in a unital \cstar\ such that
   \[
-    \varphi_k\colon
-    M_{r_k}(C(\mathbb T))\oplus M_{s_k}(C(\mathbb T))
-    \longrightarrow
-    M_{r_{k+1}}(C(\mathbb T))\oplus M_{s_{k+1}}(C(\mathbb T)),
+    \operatorname{sp}(X)=\mathbb T,
+    \qquad W^m=1,
+    \qquad XW=\eta^{-p}WX,
+    \qquad \eta=e^{2\pi i/m},
+  \]
+  where \(m\geq1\) and \((p,m)=1\). Then
+  \[
+    C^*(X,W)\cong M_m(C(\mathbb T)).
+  \]
+\end{lemma}
+
+\begin{proof}
+  The spectral projections of \(W\) are
+  \[
+    e_j=\frac1m\sum_{k=0}^{m-1}\eta^{-jk}W^k,
+    \qquad 0\leq j<m.
+  \]
+  They are mutually orthogonal, have sum one, and \(X\) permutes them in a
+  single cycle because \((p,m)=1\). After relabelling them, we may suppose
+  that \(Xe_jX^*=e_{j+1}\), with indices read modulo \(m\). The elements
+  \[
+    e_{j+1,j}=e_{j+1}Xe_j
+  \]
+  and their products and adjoints form a full system of matrix units. The
+  remaining corner variable is the unitary \(e_0X^me_0\). Indeed, \(X^m\)
+  commutes with every \(e_j\), and its restrictions to the corners
+  \(e_jC^*(X,W)e_j\) are unitarily equivalent. Their common spectrum is
+  therefore \(\operatorname{sp}(X^m)=\mathbb T\). Hence
+  \[
+    e_0C^*(X,W)e_0=C^*(e_0X^me_0)\cong C(\mathbb T),
+  \]
+  and the matrix units identify the whole algebra with
+  \(M_m(C(\mathbb T))\).
+\end{proof}
+
+The second fact explains how the Morita-equivalence calculation below
+produces an actual corner isomorphism. We use the convention that the left
+and right inner products of a \(B\)-\(A\) imprimitivity bimodule \(Y\) are
+denoted by \({}_B\langle\cdot,\cdot\rangle\) and
+\(\langle\cdot,\cdot\rangle_A\), respectively.
+
+\begin{lemma}[Twisted Fourier transform]\label{lemma:TwistedFourierCorner}
+  Let \(Y\) be a \(B\)-\(A\) imprimitivity bimodule and let \(f\in Y\)
+  satisfy \({}_B\langle f,f\rangle=1_B\). Then
+  \[
+    e=\langle f,f\rangle_A
+  \]
+  is a projection and
+  \[
+    \Phi_f\colon B\longrightarrow eAe,
+    \qquad
+    \Phi_f(b)=\langle f,bf\rangle_A,
+  \]
+  is a \(^*\)-isomorphism. Its inverse is
+  \[
+    \Phi_f^{-1}(eae)={}_B\langle fa,f\rangle.
+  \]
+\end{lemma}
+
+\begin{proof}
+  The compatibility identity
+  \[
+    {}_B\langle x,y\rangle z=x\langle y,z\rangle_A
+  \]
+  gives
+  \[
+    e^2
+      =\langle f,f\rangle_A\langle f,f\rangle_A
+      =\langle f,{}_B\langle f,f\rangle f\rangle_A=e,
+  \]
+  and \(e=e^*\). The same identity shows directly that \(\Phi_f\) is
+  multiplicative and preserves adjoints. Substituting the two displayed
+  formulas into one another and using
+  \({}_B\langle f,f\rangle=1_B\) proves that they are inverse maps.
+\end{proof}
+
+\section{The Elliott--Lin cut-down}
+
+We now prove the approximation statement which supplies the substantive
+part of the Elliott--Evans theorem. The proof is the two-dimensional
+specialization of the cut-down calculation in
+\cite[pp.~122--130]{ElliottLin1996}; its Morita equivalence is Rieffel's
+Schwartz-space construction \cite{Rieffel1988}.
+
+Let
+\[
+  \frac pq<\theta<\frac{p'}{q'}
+\]
+be consecutive convergents, with \(q<q'\), and put
+\[
+  \alpha=q\theta-p,
+  \qquad
+  \alpha'=p'-q'\theta.
+\]
+Proposition~\ref{prop:ConvergentErrorPartition} gives
+\begin{equation}\label{eq:ElliottLinPartition}
+  q'\alpha+q\alpha'=1.
+\end{equation}
+Moreover, \(q\alpha'<1/2\), while \(q,q'\to\infty\) and
+\(\alpha,\alpha'\to0\) along the continued fraction expansion.
+
+\begin{proposition}[Elliott--Lin cut-down]
+  \label{prop:ElliottLinCutDown}
+  For each pair of consecutive convergents as above there are complementary
+  projections \(e_0,e_1\in A_\theta\) and unital subalgebras
+  \[
+    D_0\subseteq e_0A_\theta e_0,
+    \qquad
+    D_1\subseteq e_1A_\theta e_1
   \]
   such that
+  \[
+    D_0\cong M_{q'}(C(\mathbb T)),
+    \qquad
+    D_1\cong M_q(C(\mathbb T)).
+  \]
+  As \(q\to\infty\),
+  \[
+    \lVert[e_0,U]\rVert+\lVert[e_0,V]\rVert\longrightarrow0,
+  \]
+  and the two compressed generators satisfy
+  \begin{align}
+    \operatorname{dist}(e_0Ue_0,D_0)&\leq\frac{12}{\sqrt q},
+    &
+    \operatorname{dist}(e_0Ve_0,D_0)&\leq\frac{6\pi}{q},
+    \label{eq:ElliottLinFirstCorner}\\
+    \operatorname{dist}(e_1Ue_1,D_1)
+      &\leq4\left(\frac\pi q+\frac3{\sqrt q}\right),
+    &
+    \operatorname{dist}(e_1Ve_1,D_1)&\leq6\pi\alpha.
+    \label{eq:ElliottLinSecondCorner}
+  \end{align}
+\end{proposition}
+
+\begin{proof}
+  Choose a smooth function \(f_0\colon\mathbb R\to[0,1]\), supported in
+  \([0,1/q']\), which is one on
+  \([q\alpha'/q',\alpha]\) and satisfies
+  \[
+    f_0(t-\alpha)=1-f_0(t)
+    \qquad(\alpha\leq t\leq1/q').
+  \]
+  For \(0\leq X\leq1\), define periodic functions
+  \begin{align*}
+    F(X)&=\sum_{n\in\mathbb Z}
+      f_0\left(\frac X{q'}+\frac n{q'}\right),\\
+    G(X)&=
+    \begin{cases}
+      \displaystyle\sum_{n\in\mathbb Z}
+      \sqrt{
+        f_0\left(\frac X{q'}+\frac n{q'}\right)
+        \left(1-f_0\left(\frac X{q'}+\frac n{q'}\right)\right)},
+        &\alpha\leq X/q'\leq1/q',\\[6pt]
+      0,&0\leq X/q'\leq\alpha.
+    \end{cases}
+  \end{align*}
+  Functional calculus in \(C^*(V)\) now gives the Powers--Rieffel
+  projection
+  \begin{equation}\label{eq:ElliottLinProjection}
+    e_0=U^qG(V^{-q'})+F(V^{-q'})+G(V^{-q'})U^{-q},
+    \qquad e_1=1-e_0.
+  \end{equation}
+  Indeed, the symmetry imposed on \(f_0\) is precisely the pair of
+  identities which makes the off-diagonal coefficients in \(e_0^2-e_0\)
+  vanish and makes its central coefficient zero. The canonical trace is
+  \[
+    \tau(e_0)=q'\alpha,
+    \qquad
+    \tau(e_1)=q\alpha',
+  \]
+  in agreement with \eqref{eq:ElliottLinPartition}. Commuting \(U\) and
+  \(V\) through \eqref{eq:ElliottLinProjection} replaces the arguments of
+  \(f_0\) by the translates determined by
+  \(q\theta-p=\alpha\) and \(p'-q'\theta=\alpha'\). The square-root
+  estimate used in \cite[Lemma~2]{ElliottLin1996}, applied to these
+  translates, gives
+  \[
+    \lVert[e_0,U]\rVert+\lVert[e_0,V]\rVert\longrightarrow0.
+  \]
+
+  We record the corner calculation, including the estimates, because this
+  is the step which cannot be recovered from the continued-fraction
+  recurrence alone. Apply Rieffel's equivalence bimodule associated with a
+  lattice \(D\) and its annihilator \(D^\perp\) in
+  \(M\times\widehat M\), where
+  \[
+    M=\mathbb R\times\mathbb Z_q\times\mathbb Z_{q'}.
+  \]
+  Its dense submodule is the Schwartz space \(\mathcal S(M)\). For the
+  first corner take the vector supported on the zero elements of the two
+  finite cyclic factors and having real component \(\sqrt{f_0}\). After
+  normalization, its left inner product is one and its right inner product
+  is \(e_0\). Lemma~\ref{lemma:TwistedFourierCorner} therefore identifies
+  \(e_0A_\theta e_0\) with the twisted group algebra of \(D^\perp\).
+
+  In the natural frame of that twisted group algebra there are unitaries
+  \(S_0,T_0\) such that
+  \[
+    \operatorname{sp}(S_0)=\mathbb T,
+    \qquad T_0^{q'}=1,
+    \qquad
+    S_0T_0=e^{-2\pi ip'/q'}T_0S_0.
+  \]
+  The inner products of the translated Schwartz vector vanish outside two
+  adjacent Fourier coefficients. Applying the elementary inequality for
+  their positive square roots and summing those two coefficients gives
+  \begin{align*}
+    \bigl\lVert\Phi_0^{-1}(e_0Ue_0)-S_0\bigr\rVert
+      &\leq\frac{12}{\sqrt q},\\
+    \bigl\lVert\Phi_0^{-1}(e_0Ve_0)-T_0\bigr\rVert
+      &\leq\frac{6\pi}{q}.
+  \end{align*}
+  Since \((p',q')=1\), Lemma~\ref{lemma:CircleAlgebraRecognition} shows that
+  \[
+    C^*(S_0,T_0)\cong M_{q'}(C(\mathbb T)).
+  \]
+  Its image under \(\Phi_0\) is the required algebra \(D_0\), and the last
+  two estimates are \eqref{eq:ElliottLinFirstCorner}.
+
+  For the complementary corner one uses the Schwartz vector obtained from
+  \(\sqrt{1-f_0}\) on one half of its support and from a translated copy of
+  \(\sqrt{f_0}\) on the other. Its left inner product is one and its right
+  inner product is \(e_1\). The corresponding natural-frame unitaries
+  \(S_1,T_1\) satisfy the hypotheses of
+  Lemma~\ref{lemma:CircleAlgebraRecognition} with \(m=q\). Thus
+  \[
+    C^*(S_1,T_1)\cong M_q(C(\mathbb T)).
+  \]
+  The same two-coefficient computation gives
+  \begin{align*}
+    \bigl\lVert\Phi_1^{-1}(e_1Ue_1)-S_1\bigr\rVert
+      &\leq4\left(\frac\pi q+\frac3{\sqrt q}\right),\\
+    \bigl\lVert\Phi_1^{-1}(e_1Ve_1)-T_1\bigr\rVert
+      &\leq6\pi\alpha.
+  \end{align*}
+  Taking \(D_1=\Phi_1(C^*(S_1,T_1))\) proves
+  \eqref{eq:ElliottLinSecondCorner} and completes the construction.
+\end{proof}
+
+\begin{remark}
+  The last calculation is not an appeal to the Elliott--Evans theorem. It
+  is the independent cut-down proof of Elliott and Lin. The functions in
+  \eqref{eq:ElliottLinProjection}, the two twisted Fourier transforms, and
+  all four constants in
+  \eqref{eq:ElliottLinFirstCorner}--\eqref{eq:ElliottLinSecondCorner} are
+  those computed in \cite[pp.~124--130]{ElliottLin1996}.
+\end{remark}
+
+\section{From local approximation to an inductive limit}
+
+We shall use the following standard local characterization of AT algebras.
+For completeness, the perturbation argument is included.
+
+\begin{lemma}\label{lemma:LocalCircleApproximationAT}
+  Let \(A\) be a separable unital \cstar. Suppose that, for every finite
+  set \(\mathcal F\subset A\) and every \(\varepsilon>0\), there is a
+  unital subalgebra \(D\subset A\), isomorphic to a finite direct sum of
+  matrix algebras over \(C(\mathbb T)\), such that
+  \[
+    \operatorname{dist}(a,D)<\varepsilon
+    \qquad(a\in\mathcal F).
+  \]
+  Then \(A\) is an AT algebra.
+\end{lemma}
+
+\begin{proof}
+  Each algebra \(M_r(C(\mathbb T))\) is generated by a system of matrix
+  units and one unitary in a diagonal corner. These relations are stable:
+  approximate matrix units can be perturbed to matrix units, and an
+  approximate unitary can be replaced by the unitary in its polar
+  decomposition. The same holds for finite direct sums, after first
+  perturbing their almost central summand projections.
+
+  Let \((a_n)\) be dense in the unit ball of \(A\), and choose a summable
+  sequence \((\varepsilon_n)\) of positive numbers. Inductively apply the
+  hypothesis to \(a_1,\ldots,a_n\) and to a fixed finite generating set of
+  the preceding circle algebra \(D_{n-1}\). Stability of the relations
+  gives a unital homomorphism
+  \[
+    \varphi_{n-1}\colon D_{n-1}\longrightarrow D_n
+  \]
+  which, on that generating set, differs from the inclusion into \(A\) by
+  less than \(\varepsilon_n\). Consequently the canonical maps of the
+  inductive system \((D_n,\varphi_n)\) form a Cauchy sequence on a dense
+  \(^*\)-subalgebra. Their limit is a homomorphism
+  \[
+    \varinjlim(D_n,\varphi_n)\longrightarrow A.
+  \]
+  At the \(n\)-th step we may also require the approximation on a finite
+  \(2^{-n}\)-net in the unit ball of each of the first \(n\) stages. Since
+  their inclusions into \(A\) are isometric and the accumulated errors are
+  summable, the limit homomorphism is isometric on a dense union. It is
+  surjective because its image approximates every \(a_n\). Hence it is an
+  isomorphism, and \(A\) is an AT algebra.
+\end{proof}
+
+\section{The theorem}
+
+We can now prove the main result of \cite{ElliottEvans1993}, using the
+shorter cut-down argument of \cite{ElliottLin1996}.
+
+\begin{theorem}[Elliott--Evans]\label{thm:ElliottEvansAT}
+  Let \(\theta\in(0,1)\setminus\mathbb Q\). For every finite set
+  \(\mathcal F\subset A_\theta\) and every \(\varepsilon>0\), there are
+  consecutive convergent denominators \(q<q'\) and a unital subalgebra
+  \[
+    D\subset A_\theta,
+    \qquad
+    D\cong M_{q'}(C(\mathbb T))\oplus M_q(C(\mathbb T)),
+  \]
+  such that
+  \[
+    \operatorname{dist}(a,D)<\varepsilon
+    \qquad(a\in\mathcal F).
+  \]
+  Consequently there are unital connecting homomorphisms \(\varphi_k\)
+  and pairs \((r_k,s_k)\) of successive convergent denominators for which
   \[
     A_\theta\cong
     \varinjlim\bigl(
@@ -15454,29 +15765,41 @@ is also recorded in \cite{Stacey2001}.
   In particular, \(A_\theta\) is an AT algebra.
 \end{theorem}
 
-\begin{remark}
-  The theorem is quoted here rather than reproved.  Its proof constructs
-  two circle-algebra approximants inside the rotation algebra and controls
-  the boundary terms produced when the continued-fraction towers are
-  closed up.  This is considerably stronger than the existence of the
-  rational matrix fibres from Chapter~21.  In particular, it supplies the
-  connecting homomorphisms \(\varphi_k\); they are not determined by the
-  fraction matrices alone.
-\end{remark}
+\begin{proof}
+  First suppose that \(\mathcal F=\{U,V\}\). Apply
+  Proposition~\ref{prop:ElliottLinCutDown} and put
+  \[
+    D=D_0\oplus D_1\subset A_\theta.
+  \]
+  Since \(e_0+e_1=1\), for \(x=U,V\) we have
+  \[
+    x-(e_0xe_0+e_1xe_1)=e_0xe_1+e_1xe_0,
+  \]
+  and therefore
+  \[
+    \lVert x-(e_0xe_0+e_1xe_1)\rVert
+      \leq2\lVert[e_0,x]\rVert.
+  \]
+  The commutator term and all four errors in
+  \eqref{eq:ElliottLinFirstCorner}--\eqref{eq:ElliottLinSecondCorner} tend
+  to zero. Thus \(U\) and \(V\) are arbitrarily close to \(D\).
 
-Recall that an AT algebra is, by definition, an inductive limit of finite
-direct sums of algebras of the form \(M_r(C(\mathbb T))\).  The theorem
-therefore gives an approximation statement internal to the category of
-\(C^*\)-algebras: if \(\iota_k\) denotes the canonical map of the
-\(k\)-th building block into the limit, then
-\[
-  \bigcup_k
-  \iota_k\bigl(M_{r_k}(C(\mathbb T))\oplus
-               M_{s_k}(C(\mathbb T))\bigr)
-\]
-is dense in the inductive limit.  After choosing the isomorphism in
-Theorem~\ref{thm:ElliottEvansAT}, every finite subset of \(A_\theta\) is
-therefore uniformly approximated by elements coming from one circle block.
+  Every element of \(A_\theta=C^*(U,V)\) is a norm limit of a
+  noncommutative polynomial in \(U,V,U^*,V^*\). Approximate the finitely
+  many elements of \(\mathcal F\) by such polynomials. Uniform continuity
+  of these finitely many polynomial expressions shows that, on choosing
+  \(q\) sufficiently large, every element of \(\mathcal F\) is within
+  \(\varepsilon\) of \(D\). Lemma~\ref{lemma:LocalCircleApproximationAT}
+  now supplies the asserted inductive system and proves that \(A_\theta\)
+  is AT.
+\end{proof}
+
+The proof shows more than the abstract existence of an inductive system:
+the two summands at each approximation stage are the complementary corners
+of the explicit projection \eqref{eq:ElliottLinProjection}. Their matrix
+sizes are the consecutive denominators \(q'\) and \(q\), while their units
+have traces \(q'\alpha\) and \(q\alpha'\), whose sum is one by
+\eqref{eq:ElliottLinPartition}.
 
 \section{K-theory and the role of the connecting maps}
 
@@ -15640,6 +15963,14 @@ framework to which that later metric analysis will be attached.
   Annals of Mathematics (2) \textbf{138}, no.~3 (1993), 477--501,
   \url{https://doi.org/10.2307/2946553}.
 
+\bibitem{ElliottLin1996}
+  G. A. Elliott and Q. Lin,
+  \textit{Cut-down method in the inductive limit decomposition of
+  non-commutative tori},
+  Journal of the London Mathematical Society (2)
+  \textbf{54}, no.~1 (1996), 121--134,
+  \url{https://doi.org/10.1112/jlms/54.1.121}.
+
 \bibitem{Stacey2001}
   P. J. Stacey,
   \textit{Inductive limit toral automorphisms of irrational rotation algebras},
@@ -15652,6 +15983,13 @@ framework to which that later metric analysis will be attached.
   Pacific Journal of Mathematics
   \textbf{93}, no.~2 (1981), 415--429,
   \url{https://doi.org/10.2140/pjm.1981.93.415}.
+
+\bibitem{Rieffel1988}
+  M. A. Rieffel,
+  \textit{Projective modules over higher-dimensional non-commutative tori},
+  Canadian Journal of Mathematics
+  \textbf{40}, no.~2 (1988), 257--338,
+  \url{https://doi.org/10.4153/CJM-1988-012-9}.
 
 \bibitem{BrownGreenRieffel1977}
   L. G. Brown, P. Green and M. A. Rieffel,
